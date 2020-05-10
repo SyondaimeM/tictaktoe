@@ -1,0 +1,272 @@
+<html>
+   <head></head>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   <style>
+      .container{
+      text-align: center;
+      width: 900px;
+      height: 900px;
+      }
+      .box{
+      height: 285px;
+      }
+      #one{
+      border-bottom: 5px solid Red;
+      border-right: 5px solid Red;
+      }
+      #two{
+      border-left: 5px solid Red;
+      border-bottom: 5px solid Red;
+      border-right: 5px solid Red;
+      }
+      #three{
+      border-bottom: 5px solid Red;
+      border-left: 5px solid Red;
+      }
+      #four{
+      border-top: 5px solid Red;
+      border-right: 5px solid Red;
+      border-bottom: 5px solid Red;
+      }
+      #five{
+      border-top: 5px solid Red;
+      border-right: 5px solid Red;
+      border-left: 5px solid Red;
+      border-bottom: 5px solid Red;
+      }
+      #six{
+      border-top: 5px solid Red;
+      border-left: 5px solid Red;
+      border-bottom: 5px solid Red;
+      }
+      #seven{
+      border-top: 5px solid Red;
+      border-right: 5px solid Red;
+      }
+      #eight{
+      border-top: 5px solid Red;
+      border-right: 5px solid Red;
+      border-left: 5px solid Red;
+      }
+      #nine{
+      border-top: 5px solid Red;
+      border-left: 5px solid Red;
+      }
+   </style>
+   <body>
+      <h1>
+         Tic Tac Toe
+      </h1>
+      <br>
+      <div class="container">
+         <div class="row">
+            <div class="box row1 col-4" id= "one">
+            </div>
+            <div class="box row1 col-4" id= "two">
+            </div>
+            <div class="box row1 col-4" id= "three">
+            </div>
+         </div>
+         <div class="row">
+            <div class="box row2 col-4" id= "four">
+            </div>
+            <div class="box row2 col-4" id= "five">
+            </div>
+            <div class="box row2 col-4" id= "six">
+            </div>
+         </div>
+         <div class="row">
+            <div class="box row3 col-4" id= "seven">
+            </div>
+            <div class="box row3 col-4" id= "eight">
+            </div>
+            <div class="box row3 col-4" id= "nine">
+            </div>
+         </div>
+      </div>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="buttonTrig" data-backdrop="static" data-keyboard="false" style="display: none;">
+      Launch demo modal
+      </button>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                     <center>Tic Tac Toe</center>
+                  </h5>
+               </div>
+               <div class="modal-body">
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-success" id="restart">Restart</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+      <script type="text/javascript">
+         var count = 0;
+         $( ".box" ).dblclick(function(e) {
+             e.preventDefault();
+             // var idName = this.id;
+             // if(checkAlreadyClickedOrNot(idName)) return;
+             // setTimeout(function() {
+             //     alert('slow');
+             // }, 10);
+         });
+         
+         function wait(x,idName)
+         {
+             setTimeout(function(){
+                 main(idName);
+             },x);
+         
+         }
+         
+         function main(idName)
+         {
+             x= true;
+             if(x){
+                 var id= '#'+idName;
+                 if((count%2)==0){
+                     $(id).html('<span style= "text-align: center; vertical-align: middle; line-height: 275px; font-size: 200; ">X</span>');
+                     trigger(idName);
+                 }else{
+                     $(id).html('<span style= "text-align: center; vertical-align: middle; line-height: 275px; font-size: 200; ">0</span>');
+                     trigger(idName);
+                 }
+                 x=false;
+             }
+         
+         }
+         function trigger(idName)
+         {
+              count++;
+         
+                 if (count==9) 
+                 {
+                     $('.modal-body').html('DRAW');
+                     $('#buttonTrig').trigger('click');
+                 }
+                 if(checkRow(idName) || checkDiag(idName) || checkCol(idName) )
+                 {
+                     $('.modal-body').html('Game Won by Player '+ checkXorO(idName));
+                      // $(".container").css({
+                      //         "-moz-transform": "rotate(45deg)",
+                      //           "-o-transform": "rotate(45deg)",  
+                      //      "-webkit-transform": "rotate(45deg)",
+                      //          "-ms-transform": "rotate(45deg)",  
+                      //             "transform": "rotate(45deg)" ,
+                      //    });
+                     $('#buttonTrig').trigger('click');
+         
+                 }
+         }
+         /////// draw x and 0 in the field
+         $('.box').click(function(e){
+             // console.log(e);
+             // e.preventDefault();
+             if(e.target=='span') return;
+             var idName = this.id;
+             if(checkAlreadyClickedOrNot(idName)) return;
+             // console.log('id'+idName);
+             wait(1,idName);
+             $( this ).off( e );
+            
+         })
+         
+         function checkAlreadyClickedOrNot(idName)
+         {
+             return (checkXorO(idName) == ('X' || '0'));
+         }
+         /// check x or 0 
+         function checkXorO(idName)
+         {   
+             id='#'+idName; 
+             return $(id).text();
+         }
+         
+         
+         ///check row
+         function checkRow(idName)
+         {   
+             if(checkXorO(idName)=='X')
+                 if((checkXorO('one') == 'X' && checkXorO('two') == 'X' && checkXorO('three') == 'X' )||(checkXorO('four') == 'X' && checkXorO('five') == 'X' && checkXorO('six') == 'X' )||(checkXorO('seven') == 'X' && checkXorO('eight') == 'X' && checkXorO('nine') == 'X' ) )
+                 { 
+                     return true;
+                 } 
+                 else
+                 {
+                     return false;
+                 }
+         
+             if((checkXorO('one') == '0' && checkXorO('two') == '0' && checkXorO('three') == '0' )||(checkXorO('four') == '0' && checkXorO('five') == '0' && checkXorO('six') == '0' )||(checkXorO('seven') == '0' && checkXorO('eight') == '0' && checkXorO('nine') == '0' ) )
+                 { 
+                     return true;
+                 } 
+                 else
+                 {
+                     return false;
+                 }
+         }
+         
+         function checkCol(idName)
+         {
+             if(checkXorO(idName)=='X')
+                 if((checkXorO('one') == 'X' && checkXorO('four') == 'X' && checkXorO('seven') == 'X' )||(checkXorO('two') == 'X' && checkXorO('five') == 'X' && checkXorO('eight') == 'X' )||(checkXorO('three') == 'X' && checkXorO('six') == 'X' && checkXorO('nine') == 'X' ) )
+                 { 
+                     return true;
+                 } 
+                 else
+                 {
+                     return false;
+                 }
+         
+             if((checkXorO('one') == '0' && checkXorO('four') == '0' && checkXorO('seven') == '0' )||(checkXorO('two') == '0' && checkXorO('five') == '0' && checkXorO('eight') == '0' )||(checkXorO('three') == '0' && checkXorO('six') == '0' && checkXorO('nine') == '0' ) )
+                 { 
+                     return true;
+                 } 
+                 else
+                 {
+                     return false;
+                 }
+         }
+         
+         function checkDiag(idName)
+         {
+         
+             if(checkXorO(idName)=='X')
+                 if((checkXorO('one') == 'X' && checkXorO('five') == 'X' && checkXorO('nine') == 'X' )||(checkXorO('three') == 'X' && checkXorO('five') == 'X' && checkXorO('seven') == 'X' ))
+                 { 
+                     return true;
+                 } 
+                 else
+                 {
+                     return false;
+                 }
+         
+             if((checkXorO('one') == '0' && checkXorO('five') == '0' && checkXorO('nine') == '0' )||(checkXorO('three') == '0' && checkXorO('five') == '0' && checkXorO('seven') == '0' ))
+                 { 
+                     return true;
+                 } 
+                 else
+                 {
+                     return false;
+                 }
+         }
+         
+         
+         $('#restart').click(function(){
+             location.reload();
+         });
+         
+         
+         
+         
+      </script>
+   </body>
+</html>
